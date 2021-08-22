@@ -72,7 +72,7 @@ jobs:
         cd helmcharts
         echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
         echo $HELM_BASE
-        cd msadservice
+        cd mscartservice
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
         sed -i 's/mscart_.*/'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
