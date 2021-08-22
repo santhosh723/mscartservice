@@ -55,6 +55,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: mscartservice
+        IMAGE_TAG: mscartimg_${{ github.sha }}
       run: |
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -75,7 +76,7 @@ jobs:
         echo $HELM_BASE
         cd mscartservice
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
-        sed -i 's/mscart.*/'$IMAGE_TAG'"/g' values.yaml 
+        sed -i 's/mscartimg_.*/'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
         cd ../
         git add .
